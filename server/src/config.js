@@ -37,6 +37,7 @@ function buildConfig(dir) {
     stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET || '',
     maxActivationsPerKey: int('MAX_ACTIVATIONS_PER_KEY', 3),
     tokenTtlDays: int('TOKEN_TTL_DAYS', 7),
+    graceDays: int('GRACE_DAYS', 3),
     dbFile: process.env.DB_FILE || path.join(dir, 'data', 'licenses.db'),
   };
 }

@@ -22,18 +22,39 @@ CREATE TABLE IF NOT EXISTS activations (
 );
 `;
 
+// Subscription support columns (used by the optional SUBSCRIPTION_MODULE plugin).
+// Lifetime keys leave expires_at NULL and are unaffected.
+function migrate(db) {
+  const cols = db.prepare('PRAGMA table_info(licenses)').all().map((c) => c.name);
+  const wanted = {
+    subscription_id: 'TEXT',
+    expires_at: 'INTEGER',
+    grace_days: 'INTEGER',
+  };
+  for (const [col, ddl] of Object.entries(wanted)) {
+    if (!cols.includes(col)) db.exec(`ALTER TABLE licenses ADD COLUMN ${col} ${ddl}`);
+  }
+}
+
 function openDb(dbFile) {
   fs.mkdirSync(path.dirname(dbFile), { recursive: true });
   const db = new DatabaseSync(dbFile);
   db.exec(SCHEMA);
+  migrate(db);
   return {
     db,
-    createLicense({ key, email, stripeSession, maxActivations }) {
+    createLicense({ key, email, stripeSession, maxActivations, subscriptionId }) {
       db.prepare(
-        `INSERT INTO licenses (key, status, email, stripe_session, max_activations, created_at)
-         VALUES (?, 'active', ?, ?, ?, ?)`
-      ).run(key, email || null, stripeSession || null, maxActivations, Date.now());
+        `INSERT INTO licenses (key, status, email, stripe_session, max_activations, created_at, subscription_id)
+         VALUES (?, 'active', ?, ?, ?, ?, ?)`
+      ).run(key, email || null, stripeSession || null, maxActivations, Date.now(), subscriptionId || null);
       return key;
+    },
+    findBySubscription(subscriptionId) {
+      return db.prepare('SELECT * FROM licenses WHERE subscription_id = ?').get(subscriptionId) || null;
+    },
+    setExpiresAt(key, expiresAt) {
+      db.prepare('UPDATE licenses SET expires_at = ? WHERE key = ?').run(expiresAt, key);
     },
     getLicense(key) {
       return db.prepare('SELECT * FROM licenses WHERE key = ?').get(key) || null;

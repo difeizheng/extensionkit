@@ -33,6 +33,8 @@ function parseCheckoutCompleted(event) {
   return {
     sessionId: session.id,
     email: (session.customer_details && session.customer_details.email) || session.customer_email || '',
+    // Present when the Payment Link / Checkout Session is subscription-mode.
+    subscription: session.subscription || null,
   };
 }
 

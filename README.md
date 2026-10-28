@@ -43,7 +43,8 @@ ExtensionKit is that week, already done — with tests.
 - **Human-friendly keys.** `XXXX-XXXX-XXXX-XXXX` with the ambiguous chars (I, O, 0, 1)
   removed — fewer "it says invalid key" emails.
 - **Zero-dependency server.** `node src/index.js` and you're live on any VPS, container,
-  or free tier. SQLite storage via Node's built-in `node:sqlite`.
+  or free tier. SQLite storage via Node's built-in `node:sqlite`. Optional plugin hook
+  (`SUBSCRIPTION_MODULE`) adds subscription-aware licensing without touching the core.
 - **Tested.** The server ships with an end-to-end test suite (`npm test`): activation
   limits, token signatures, webhook forgery, replay protection, admin auth.
 

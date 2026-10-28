@@ -10,6 +10,19 @@ const { verifyStripeSignature, parseCheckoutCompleted } = require('./stripe');
 const CONFIG = buildConfig(__dirname);
 const store = openDb(CONFIG.dbFile);
 
+// Optional plugin (Pro pack): handles subscription lifecycle webhooks.
+// Set SUBSCRIPTION_MODULE=/path/to/subscription.js to enable; without it the
+// server still handles one-time/lifetime keys exactly as before.
+let subscriptionModule = null;
+if (process.env.SUBSCRIPTION_MODULE) {
+  try {
+    subscriptionModule = require(path.resolve(process.env.SUBSCRIPTION_MODULE));
+    console.log(`[config] subscription module loaded: ${process.env.SUBSCRIPTION_MODULE}`);
+  } catch (err) {
+    console.error(`[config] SUBSCRIPTION_MODULE failed to load: ${err.message}`);
+  }
+}
+
 const MAX_BODY_BYTES = 256 * 1024;
 
 function json(res, status, body) {
@@ -101,8 +114,15 @@ async function handleValidate(req, res) {
   const instanceId = cleanString(body.instance_id, 128);
   if (!key || !instanceId) return fail(res, 400, 'license_key and instance_id are required');
   const license = store.getLicense(key);
-  if (!license || license.status !== 'active') {
+  // 'canceled' subscriptions stay usable until expires_at + grace (checked below).
+  if (!license || (license.status !== 'active' && license.status !== 'canceled')) {
     return json(res, 200, { ok: false, reason: 'inactive' });
+  }
+  if (license.expires_at) {
+    const graceMs = (license.grace_days == null ? CONFIG.graceDays : license.grace_days) * 86400000;
+    if (Date.now() > license.expires_at + graceMs) {
+      return json(res, 200, { ok: false, reason: 'subscription_expired' });
+    }
   }
   const known = store.listActivations(key).some((a) => a.instance_id === instanceId);
   if (!known) return json(res, 200, { ok: false, reason: 'not_activated' });
@@ -148,9 +168,13 @@ async function handleStripeWebhook(req, res) {
       email: checkout.email,
       stripeSession: checkout.sessionId,
       maxActivations: CONFIG.maxActivationsPerKey,
+      subscriptionId: checkout.subscription,
     });
     console.log(`[stripe] issued license ${key} for session ${checkout.sessionId}`);
     return json(res, 200, { ok: true, license_key: key });
+  }
+  if (subscriptionModule && subscriptionModule.handleSubscriptionEvent(store, event, CONFIG)) {
+    return json(res, 200, { ok: true, handled_by_subscription_module: true });
   }
   json(res, 200, { ok: true, ignored: event && event.type });
 }
