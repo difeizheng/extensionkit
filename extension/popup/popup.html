@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <style>
+    :root { color-scheme: light dark; }
+    body { font: 13px/1.5 system-ui, sans-serif; width: 300px; margin: 0; padding: 14px; }
+    h1 { font-size: 14px; margin: 0 0 10px; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-weight: 600; font-size: 11px; }
+    .badge.on { background: #16a34a; color: #fff; }
+    .badge.off { background: #94a3b8; color: #fff; }
+    #pro-panel { margin-top: 12px; padding: 10px; border: 1px solid #d4d4d8; border-radius: 8px; }
+    button { margin-top: 8px; padding: 6px 10px; border-radius: 6px; border: 1px solid #a1a1aa; background: transparent; cursor: pointer; }
+    a { color: #2563eb; text-decoration: none; }
+    .muted { color: #71717a; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>ExtensionKit Demo</h1>
+  <div>
+    License: <span id="status-badge" class="badge off">checking…</span>
+  </div>
+  <div id="pro-panel">
+    <strong>Pro feature</strong>
+    <p id="pro-output" class="muted">Gated on an active license.</p>
+    <button id="run-pro">Run Pro feature</button>
+    <br />
+    <a href="../options/options.html" target="_blank">Manage license →</a>
+  </div>
+  <script src="../lib/license-client.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

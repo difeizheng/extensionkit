@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "ExtensionKit Demo",
+  "version": "1.0.0",
+  "description": "Reference extension for ExtensionKit: license-key activation, offline validation, and a gated Pro feature.",
+  "permissions": ["storage", "alarms"],
+  "host_permissions": ["https://your-license-server.example.com/*"],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "ExtensionKit Demo"
+  },
+  "options_page": "options/options.html"
+}

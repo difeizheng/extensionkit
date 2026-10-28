@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>ExtensionKit Demo — License</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font: 14px/1.6 system-ui, sans-serif; max-width: 480px; margin: 40px auto; padding: 0 16px; }
+    input { width: 100%; padding: 8px 10px; border: 1px solid #a1a1aa; border-radius: 6px; font: inherit; box-sizing: border-box; }
+    button { padding: 8px 14px; border-radius: 6px; border: 1px solid #a1a1aa; background: transparent; cursor: pointer; }
+    button.primary { background: #2563eb; border-color: #2563eb; color: #fff; }
+    #message { margin-top: 10px; min-height: 20px; }
+    .ok { color: #16a34a; }
+    .err { color: #dc2626; }
+    .muted { color: #71717a; font-size: 12px; }
+    .row { margin: 14px 0; }
+  </style>
+</head>
+<body>
+  <h1>License</h1>
+  <p class="muted">Enter the license key you received after purchase. One key works on up to 3 devices; you can free a slot by deactivating.</p>
+  <div class="row">
+    <input id="license-input" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false" />
+    <br />
+    <button id="activate-btn" class="primary">Activate</button>
+    <button id="deactivate-btn">Deactivate this device</button>
+  </div>
+  <div id="message"></div>
+  <div id="state" class="muted"></div>
+  <script src="../lib/license-client.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

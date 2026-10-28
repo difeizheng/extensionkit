@@ -1,0 +1,14 @@
+{
+  "name": "extensionkit-license-server",
+  "version": "1.0.0",
+  "description": "Zero-dependency license server for monetized browser extensions (Stripe + license keys + signed offline tokens).",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test test/"
+  },
+  "engines": {
+    "node": ">=22.5"
+  },
+  "license": "MIT"
+}
