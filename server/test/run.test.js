@@ -146,6 +146,41 @@ test('admin endpoints require the bearer key', async () => {
   assert.ok(Array.isArray(body.licenses) && body.licenses.length >= 3);
 });
 
+test('admin can issue and revoke licenses', async () => {
+  const auth = { Authorization: `Bearer ${CONFIG.adminKey}` };
+  const issued = await post('/admin/licenses', { email: 'comp@example.com', max_activations: 1 }, auth);
+  assert.equal(issued.status, 200);
+  assert.match(issued.json.license_key, /^[A-HJ-NP-Z2-9]{4}(-[A-HJ-NP-Z2-9]{4}){3}$/);
+
+  const activated = await post('/v1/licenses/activate', {
+    license_key: issued.json.license_key,
+    instance_id: 'comp-device-0001',
+  });
+  assert.equal(activated.status, 200);
+
+  const revoked = await fetch(`${baseUrl}/admin/licenses/${issued.json.license_key}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...auth },
+    body: JSON.stringify({ status: 'revoked' }),
+  });
+  assert.equal(revoked.status, 200);
+  assert.equal((await revoked.json()).status, 'revoked');
+
+  // a revoked key must fail validation and refuse new activations
+  const blockedActivate = await post('/v1/licenses/activate', {
+    license_key: issued.json.license_key,
+    instance_id: 'comp-device-0002',
+  });
+  assert.equal(blockedActivate.status, 403);
+
+  const restored = await fetch(`${baseUrl}/admin/licenses/${issued.json.license_key}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...auth },
+    body: JSON.stringify({ status: 'active' }),
+  });
+  assert.equal(restored.status, 200);
+});
+
 test('cleanup temp db', () => {
   try { fs.unlinkSync(CONFIG.dbFile); } catch {}
 });

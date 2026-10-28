@@ -158,8 +158,36 @@ async function handleStripeWebhook(req, res) {
 function handleAdmin(req, res, pathname) {
   const auth = req.headers.authorization || '';
   if (auth !== `Bearer ${CONFIG.adminKey}`) return fail(res, 401, 'unauthorized');
-  if (pathname === '/admin/licenses') {
+  if (req.method === 'GET' && pathname === '/admin/licenses') {
     return json(res, 200, { licenses: store.listLicenses() });
+  }
+  // Manually issue a license (comps, refunds-turned-gifts, non-Stripe sales).
+  if (req.method === 'POST' && pathname === '/admin/licenses') {
+    return readJson(req).then((body) => {
+      if (!body) return fail(res, 400, 'invalid JSON body');
+      const email = cleanString(body.email, 200);
+      const maxActivations = Number.isFinite(Number(body.max_activations)) && Number(body.max_activations) > 0
+        ? Math.floor(Number(body.max_activations))
+        : CONFIG.maxActivationsPerKey;
+      const key = generateLicenseKey();
+      store.createLicense({ key, email, stripeSession: body.stripe_session || `manual:${Date.now()}`, maxActivations });
+      json(res, 200, { ok: true, license_key: key });
+    });
+  }
+  // Revoke / restore a license: PATCH /admin/licenses/XXXX-XXXX-XXXX-XXXX
+  const match = pathname.match(/^\/admin\/licenses\/([A-Z0-9-]{10,64})$/);
+  if (req.method === 'PATCH' && match) {
+    return readJson(req).then((body) => {
+      if (!body) return fail(res, 400, 'invalid JSON body');
+      const status = body.status;
+      if (status !== 'active' && status !== 'revoked') {
+        return fail(res, 400, "status must be 'active' or 'revoked'");
+      }
+      const license = store.getLicense(match[1]);
+      if (!license) return fail(res, 404, 'license not found');
+      store.setStatus(match[1], status);
+      json(res, 200, { ok: true, license_key: match[1], status });
+    });
   }
   fail(res, 404, 'not found');
 }
@@ -187,7 +215,7 @@ const server = http.createServer(async (req, res) => {
     if (req.method === 'POST' && pathname === '/v1/licenses/validate') return handleValidate(req, res);
     if (req.method === 'POST' && pathname === '/v1/licenses/deactivate') return handleDeactivate(req, res);
     if (req.method === 'POST' && pathname === '/v1/webhooks/stripe') return handleStripeWebhook(req, res);
-    if (req.method === 'GET' && pathname.startsWith('/admin/')) return handleAdmin(req, res, pathname);
+    if (pathname.startsWith('/admin/')) return handleAdmin(req, res, pathname);
     fail(res, 404, 'not found');
   } catch (err) {
     console.error('[server]', err);

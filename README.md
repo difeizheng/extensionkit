@@ -72,6 +72,8 @@ Deploy: [docs/deploy.md](docs/deploy.md)
 | `POST /v1/licenses/deactivate` | Free a device slot |
 | `POST /v1/webhooks/stripe` | Payment → license key (signature-verified) |
 | `GET /admin/licenses` | List licenses + activation counts (Bearer admin key) |
+| `POST /admin/licenses` | Manually issue a license (comps, gifts, non-Stripe sales) |
+| `PATCH /admin/licenses/:key` | Revoke or restore a license |
 | `GET /healthz` | Health check |
 
 ## The Pro version
