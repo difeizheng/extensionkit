@@ -2,6 +2,8 @@
 
 **The fastest way to start charging money for your browser extension.**
 
+[Live docs site](https://difeizheng.github.io/extensionkit/) · MIT core · Pro pack $59
+
 License keys, a Stripe checkout → license delivery pipeline, offline validation, and a device-slot system — in one weekend-downloadable kit. **Zero npm dependencies** on the server; **zero build step** in the extension.
 
 ```
