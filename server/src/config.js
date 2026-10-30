@@ -38,6 +38,14 @@ function buildConfig(dir) {
     maxActivationsPerKey: int('MAX_ACTIVATIONS_PER_KEY', 3),
     tokenTtlDays: int('TOKEN_TTL_DAYS', 7),
     graceDays: int('GRACE_DAYS', 3),
+    trustProxy: process.env.TRUST_PROXY === '1',
+    rateLimit: {
+      windowMs: int('RATE_LIMIT_WINDOW_MS', 60000),
+      activatePerMin: int('RATE_LIMIT_ACTIVATE_PER_MIN', 10),
+      validatePerMin: int('RATE_LIMIT_VALIDATE_PER_MIN', 120),
+      deactivatePerMin: int('RATE_LIMIT_DEACTIVATE_PER_MIN', 30),
+      adminPerMin: int('RATE_LIMIT_ADMIN_PER_MIN', 120),
+    },
     dbFile: process.env.DB_FILE || path.join(dir, 'data', 'licenses.db'),
   };
 }

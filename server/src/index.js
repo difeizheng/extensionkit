@@ -6,9 +6,42 @@ const { buildConfig } = require('./config');
 const { openDb } = require('./db');
 const { signToken, verifyToken, generateLicenseKey } = require('./tokens');
 const { verifyStripeSignature, parseCheckoutCompleted } = require('./stripe');
+const { createRateLimiter } = require('./ratelimit');
 
 const CONFIG = buildConfig(__dirname);
 const store = openDb(CONFIG.dbFile);
+
+// Per-client fixed-window rate limits. Webhooks and health checks are exempt:
+// Stripe retries are legitimate traffic and must never be turned away.
+const rateLimit = createRateLimiter({
+  windowMs: CONFIG.rateLimit.windowMs,
+  limits: {
+    activate: CONFIG.rateLimit.activatePerMin,
+    validate: CONFIG.rateLimit.validatePerMin,
+    deactivate: CONFIG.rateLimit.deactivatePerMin,
+    admin: CONFIG.rateLimit.adminPerMin,
+    default: 60,
+  },
+});
+
+function routeClass(pathname) {
+  if (pathname === '/v1/licenses/activate') return 'activate';
+  if (pathname === '/v1/licenses/validate') return 'validate';
+  if (pathname === '/v1/licenses/deactivate') return 'deactivate';
+  if (pathname.startsWith('/admin/')) return 'admin';
+  return 'default';
+}
+
+function rateLimitDenied(res, check) {
+  const payload = JSON.stringify({ error: 'rate limited', retry_after: check.retryAfterSeconds });
+  res.writeHead(429, {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Content-Length': Buffer.byteLength(payload),
+    'Retry-After': String(check.retryAfterSeconds),
+    'Access-Control-Allow-Origin': '*',
+  });
+  res.end(payload);
+}
 
 // Optional plugin (Pro pack): handles subscription lifecycle webhooks.
 // Set SUBSCRIPTION_MODULE=/path/to/subscription.js to enable; without it the
@@ -231,6 +264,14 @@ const server = http.createServer(async (req, res) => {
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       });
       return res.end();
+    }
+    const exemptFromLimit = pathname === '/healthz' || pathname.startsWith('/v1/webhooks/');
+    if (!exemptFromLimit) {
+      const client = CONFIG.trustProxy && req.headers['x-forwarded-for']
+        ? String(req.headers['x-forwarded-for']).split(',')[0].trim()
+        : (req.socket && req.socket.remoteAddress) || 'unknown';
+      const check = rateLimit(client, routeClass(pathname));
+      if (!check.allowed) return rateLimitDenied(res, check);
     }
     if (req.method === 'GET' && pathname === '/healthz') {
       return json(res, 200, { ok: true, uptime: process.uptime() });

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ExtensionKit — Start charging money for your browser extension</title>
+<meta name="description" content="License keys, Stripe checkout, offline validation and device slots for browser extensions. Zero-dependency server, zero-build extension, tested end to end." />
+<style>
+  :root { color-scheme: light dark; --ink: #0f172a; --muted: #64748b; --line: #e2e8f0; --accent: #2563eb; }
+  * { box-sizing: border-box; }
+  body { font: 16px/1.7 system-ui, -apple-system, sans-serif; color: var(--ink); margin: 0; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+  header { padding: 72px 0 40px; }
+  h1 { font-size: clamp(28px, 5vw, 44px); line-height: 1.15; margin: 0 0 16px; letter-spacing: -0.02em; }
+  .sub { font-size: 19px; color: var(--muted); max-width: 640px; }
+  .cta { display: inline-block; margin: 28px 16px 0 0; padding: 12px 22px; border-radius: 10px; background: var(--accent); color: #fff; text-decoration: none; font-weight: 600; }
+  .cta.ghost { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+  section { padding: 36px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: 24px; margin: 0 0 20px; letter-spacing: -0.01em; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .card { border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+  .card h3 { margin: 0 0 8px; font-size: 16px; }
+  .card p { margin: 0; color: var(--muted); font-size: 14.5px; }
+  pre { background: #0f172a; color: #e2e8f0; padding: 16px 20px; border-radius: 10px; overflow-x: auto; font-size: 13.5px; line-height: 1.6; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  .price { font-size: 34px; font-weight: 700; }
+  .free { color: var(--muted); }
+  footer { padding: 28px 0 60px; color: var(--muted); font-size: 14px; }
+  a { color: var(--accent); }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink: #e2e8f0; --muted: #94a3b8; --line: #1e293b; --accent: #60a5fa; }
+    pre { background: #020617; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Start charging money for your browser extension — this weekend.</h1>
+  <p class="sub">ExtensionKit is the payments &amp; licensing plumbing every extension developer ends up
+  rebuilding: license keys, Stripe&nbsp;Checkout delivery, offline validation, device slots.
+  Zero-dependency server. Zero-build extension. Tested end to end.</p>
+  <a class="cta" href="https://github.com/difeizheng/extensionkit">Get the free core →</a>
+  <a class="cta ghost" href="#pricing">See Pro pack</a>
+</header>
+
+<section>
+  <h2>Why this exists</h2>
+  <p>Chrome killed its payment system in 2021. Since then, every developer monetizing an
+  extension hand-rolls the same week of work: webhook signature verification, replay
+  protection, offline grace periods, device management, activation UX. ExtensionKit is
+  that week, done, documented, and covered by tests — so you ship <em>your</em> product instead.</p>
+</section>
+
+<section>
+  <h2>What you get</h2>
+  <div class="grid">
+    <div class="card"><h3>💸 Stripe → license key, hands-off</h3><p>One Payment Link + one webhook. Every payment automatically mints a human-friendly key (<code>XXXX-XXXX-XXXX-XXXX</code>, ambiguous chars removed).</p></div>
+    <div class="card"><h3>✈️ Offline-first validation</h3><p>Cached HMAC-signed tokens keep users licensed on planes and in tunnels. Silent revalidation, bounded revocation window.</p></div>
+    <div class="card"><h3>📱 Device slots, self-serve</h3><p>3 devices per key by default; users free slots themselves. No "please reset my license" emails.</p></div>
+    <div class="card"><h3>🧩 Zero dependencies</h3><p>The server is Node built-ins only — no <code>npm install</code>, no supply-chain audit. The extension is vanilla MV3 — no build step.</p></div>
+    <div class="card"><h3>✅ Actually tested</h3><p>9 end-to-end tests: activation limits, token forgery, webhook replay, admin auth. <code>npm test</code> and watch them pass.</p></div>
+    <div class="card"><h3>📘 Deploy in an afternoon</h3><p>Step-by-step guides for Railway/Fly/$4-VPS, Stripe wiring, and customization. MIT licensed core.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Five minutes, running locally</h2>
+<pre>git clone https://github.com/difeizheng/extensionkit.git
+cd extensionkit/server
+cp .env.example .env        # paste a generated LICENSE_SECRET
+node src/index.js           # → http://localhost:8787  (no npm install)</pre>
+  <p>Load the <code>extension/</code> folder in Chrome, point it at your server, activate a test key.
+  Full walkthrough in <a href="https://github.com/difeizheng/extensionkit/blob/main/docs/getting-started.md">docs/getting-started.md</a>.</p>
+</section>
+
+<section id="pricing">
+  <h2>Pricing</h2>
+  <table>
+    <tr><th></th><th>Free core</th><th>Pro pack</th></tr>
+    <tr><td class="price">$0</td><td class="free">License server + reference extension + full docs, MIT licensed.</td><td class="price">$59 <span class="free">one-time</span></td></tr>
+    <tr><td></td><td class="free">Everything on GitHub.</td><td>Admin dashboard page (issue / revoke / refund keys, no SQL)<br/>Subscription-aware webhooks (monthly keys that renew)<br/>Chrome Web Store listing templates + launch checklist<br/>Customer email templates<br/>Setup video walkthrough</td></tr>
+    <tr><td></td><td></td><td><a class="cta" href="https://YOUR-GUMROAD-LINK">Buy the Pro pack</a> <span class="free">(30-day refund, no questions)</span></td></tr>
+  </table>
+</section>
+
+<footer>
+  Built for indie developers who'd rather ship products than plumbing.
+  · <a href="https://github.com/difeizheng/extensionkit">GitHub</a>
+  · MIT core license
+</footer>
+
+</div>
+</body>
+</html>

@@ -45,7 +45,8 @@ keeps the token warm).
 2. **Offline window is bounded.** A revoked/refunded key stops validating within
    `TOKEN_TTL_DAYS` (default 7) — the maximum a cracked client stays ahead of you.
    Set it to 1 day for tightly-gated products; the client revalidates silently.
-3. **Device slots cap casual sharing.** Default 3 per key; users self-serve deactivate.
+3. **Rate limiting is on by default.** /v1/licenses/* and /admin/* are limited per client (activate 10/min by default — a real user needs one call per device). Behind a reverse proxy set TRUST_PROXY=1 so limits key on X-Forwarded-For. Webhooks and /healthz are exempt.
+4. **Device slots cap casual sharing.** Default 3 per key; users self-serve deactivate.
    Raise it for team products, lower it for per-seat pricing.
 
 Honest caveat: *any* client-side license check in a JS extension can be patched out by a
