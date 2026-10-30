@@ -90,7 +90,9 @@ This repo is the free, MIT-licensed core. The **Pro pack** (paid) adds:
 - Email templates for license delivery & support
 - 45-minute setup video walkthrough
 
-→ [Get the Pro pack](https://YOUR-GUMROAD-LINK) *(link placeholder — see listing.md)*
+📕 Companion book: [Sell Your Software — $19](https://zhengdifei.gumroad.com/l/sell-your-software)
+
+→ [Get the Pro pack](https://zhengdifei.gumroad.com/l/extensionkit-pro) *(link placeholder — see listing.md)*
 
 ## License
 
