@@ -20,4 +20,4 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Run license server test suite
         working-directory: server
-        run: node --test test/run.test.js
+        run: npm test
