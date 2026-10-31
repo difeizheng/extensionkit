@@ -3,7 +3,7 @@
 **The fastest way to start charging money for your browser extension.**
 
 [![tests](https://github.com/difeizheng/extensionkit/actions/workflows/tests.yml/badge.svg)](https://github.com/difeizheng/extensionkit/actions/workflows/tests.yml)
-[Live docs site](https://difeizheng.github.io/extensionkit/) · MIT core · Pro pack $59
+[Live docs site](https://learnmilo.com/extensionkit/) · MIT core · Pro pack $59
 
 > **Not to be confused with [Apple's ExtensionKit](https://developer.apple.com/documentation/extensionkit)** — that one is about macOS/iOS app extension points. This one is about **payments and licensing for browser extensions (Chrome MV3)**.
 
@@ -110,6 +110,12 @@ your existing MV3 build, admin panel, and handover docs. 30-day refund.
 
 → [ExtensionKit Integration — $129](https://zhengdifei.gumroad.com/l/extensionkit-integration) ·
 [中文版 ¥899](https://zhengdifei.gumroad.com/l/extensionkit-integration-cn)
+
+## ⭐ Found it useful?
+
+If this saved you a week of hand-rolled webhook and device-slot code, a star is the
+cheapest possible thanks — and it's also how other developers stuck on the same wall
+find this instead of paying a contractor. Issues and PRs welcome either way.
 
 ## License
 
