@@ -18,6 +18,19 @@ Free tiers exist on all three; a license server for one extension costs ~$5/mo o
 
 ## Option B: any VPS (Hetzner, DigitalOcean, a $4 box)
 
+**One command** — clones, generates secrets, writes a hardened systemd unit,
+starts the server and waits for `/healthz`:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/difeizheng/extensionkit/main/deploy/install.sh | sudo bash
+```
+
+Re-run it any time to pull updates; your `.env` and issued licenses survive.
+Container alternative: `deploy/docker-compose.yml`. Full notes in
+[deploy/README.md](../deploy/README.md).
+
+Or do it by hand:
+
 ```bash
 # with Node 22+ installed:
 git clone <your repo> && cd server

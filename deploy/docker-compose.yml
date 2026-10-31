@@ -1,0 +1,35 @@
+# ExtensionKit license server — container deployment
+#
+#   1. cp ../server/.env.example .env  and fill in real secrets
+#   2. docker compose up -d
+#   3. docker compose logs -f
+#
+# The `licenses` volume is the database. Back up ./data, not the container.
+
+services:
+  license-server:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    image: extensionkit-license-server:latest
+    container_name: extensionkit-server
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      PORT: "8787"
+      DB_FILE: /data/licenses.db
+    ports:
+      - "127.0.0.1:8787:8787"
+    volumes:
+      - ./data:/data
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:8787/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
