@@ -62,7 +62,7 @@
     <div class="card"><h3>✈️ Offline-first validation</h3><p>Cached HMAC-signed tokens keep users licensed on planes and in tunnels. Silent revalidation, bounded revocation window.</p></div>
     <div class="card"><h3>📱 Device slots, self-serve</h3><p>3 devices per key by default; users free slots themselves. No "please reset my license" emails.</p></div>
     <div class="card"><h3>🧩 Zero dependencies</h3><p>The server is Node built-ins only — no <code>npm install</code>, no supply-chain audit. The extension is vanilla MV3 — no build step.</p></div>
-    <div class="card"><h3>✅ Actually tested</h3><p>9 end-to-end tests: activation limits, token forgery, webhook replay, admin auth. <code>npm test</code> and watch them pass.</p></div>
+    <div class="card"><h3>✅ Actually tested</h3><p>19 end-to-end tests: activation limits, token forgery, webhook replay, admin auth, rate limiting. <code>npm test</code> and watch them pass.</p></div>
     <div class="card"><h3>📘 Deploy in an afternoon</h3><p>Step-by-step guides for Railway/Fly/$4-VPS, Stripe wiring, and customization. MIT licensed core.</p></div>
   </div>
 </section>
@@ -80,11 +80,12 @@ node src/index.js           # → http://localhost:8787  (no npm install)</pre>
 <section id="pricing">
   <h2>Pricing</h2>
   <table>
-    <tr><th></th><th>Free core</th><th>Pro pack</th></tr>
-    <tr><td class="price">$0</td><td class="free">License server + reference extension + full docs, MIT licensed.</td><td class="price">$59 <span class="free">one-time</span></td></tr>
-    <tr><td></td><td class="free">Everything on GitHub.</td><td>Admin dashboard page (issue / revoke / refund keys, no SQL)<br/>Subscription-aware webhooks (monthly keys that renew)<br/>Chrome Web Store listing templates + launch checklist<br/>Customer email templates<br/>Setup video walkthrough</td></tr>
-    <tr><td></td><td></td><td><a class="cta" href="https://zhengdifei.gumroad.com/l/extensionkit-pro">Buy the Pro pack</a> <span class="free">(30-day refund, no questions)</span></td></tr>
+    <tr><th></th><th>Free core</th><th>Pro pack</th><th>Done for you</th></tr>
+    <tr><td class="price">$0</td><td class="free">License server + reference extension + full docs, MIT licensed.</td><td class="price">$59 <span class="free">one-time</span></td><td class="price">$129 <span class="free">one-time</span></td></tr>
+    <tr><td></td><td class="free">Everything on GitHub.</td><td>Admin dashboard page (issue / revoke / refund keys, no SQL)<br/>Subscription-aware webhooks (monthly keys that renew)<br/>Chrome Web Store listing templates + launch checklist<br/>Customer email templates<br/>Setup video walkthrough</td><td><b>I do the whole week for you.</b><br/>License server deployed on your host<br/>Payment webhook wired to mint keys on purchase<br/>Activation + device slots + offline validation integrated into your existing extension<br/>Admin panel + handover docs<br/>48-hour turnaround · 30-day refund</td></tr>
+    <tr><td></td><td></td><td><a class="cta" href="https://zhengdifei.gumroad.com/l/extensionkit-pro">Buy the Pro pack</a> <span class="free">(30-day refund, no questions)</span></td><td><a class="cta" href="https://zhengdifei.gumroad.com/l/extensionkit-integration">Hire me — $129</a><br/><span class="free">中文版 <a href="https://zhengdifei.gumroad.com/l/extensionkit-integration-cn">¥899</a> · 48 小时交付</span></td></tr>
   </table>
+  <p class="free" style="margin-top:14px">Already have a working extension and no patience for plumbing? The Done-for-you tier is the same code, delivered and wired for you — see <a href="https://zhengdifei.gumroad.com/l/extensionkit-integration">ExtensionKit Integration</a>.</p>
 </section>
 
 <footer>

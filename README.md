@@ -92,7 +92,18 @@ This repo is the free, MIT-licensed core. The **Pro pack** (paid) adds:
 
 📕 Companion book: [Sell Your Software — $19](https://zhengdifei.gumroad.com/l/sell-your-software)
 
-→ [Get the Pro pack](https://zhengdifei.gumroad.com/l/extensionkit-pro) *(link placeholder — see listing.md)*
+→ [Get the Pro pack](https://zhengdifei.gumroad.com/l/extensionkit-pro)
+
+## Don't want to wire it yourself?
+
+**ExtensionKit Integration — $129, done in 48 hours.** You have a working
+extension and a missing "how do I charge for it" step. I build the whole
+licensing layer for you: license server deployed, payment webhook wired to mint
+keys on purchase, activation + device slots + offline validation integrated into
+your existing MV3 build, admin panel, and handover docs. 30-day refund.
+
+→ [ExtensionKit Integration — $129](https://zhengdifei.gumroad.com/l/extensionkit-integration) ·
+[中文版 ¥899](https://zhengdifei.gumroad.com/l/extensionkit-integration-cn)
 
 ## License
 
