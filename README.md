@@ -5,6 +5,8 @@
 [![tests](https://github.com/difeizheng/extensionkit/actions/workflows/tests.yml/badge.svg)](https://github.com/difeizheng/extensionkit/actions/workflows/tests.yml)
 [Live docs site](https://difeizheng.github.io/extensionkit/) · MIT core · Pro pack $59
 
+> **Not to be confused with [Apple's ExtensionKit](https://developer.apple.com/documentation/extensionkit)** — that one is about macOS/iOS app extension points. This one is about **payments and licensing for browser extensions (Chrome MV3)**.
+
 License keys, a Stripe checkout → license delivery pipeline, offline validation, and a device-slot system — in one weekend-downloadable kit. **Zero npm dependencies** on the server; **zero build step** in the extension.
 
 ```
