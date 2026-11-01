@@ -1,0 +1,78 @@
+name: Service inquiry (done-for-you setup)
+description: Ask about the ExtensionKit Integration service — $129, done in 48 hours, 30-day refund.
+title: "[Service inquiry] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for looking at ExtensionKit.
+
+        The **ExtensionKit Integration** service is the done-for-you version of this
+        repository: I build the licensing layer for your extension — license server
+        deployed, payment webhook wired to mint keys on purchase, activation + device
+        slots + offline validation integrated into your existing MV3 build, admin panel,
+        handover docs. **$129, delivered in 48 hours after scope and sample are confirmed,
+        30-day refund.**
+
+        Use this form to describe what you're charging for. You'll get a concrete scope
+        and a fixed price back before anything is paid.
+
+  - type: textarea
+    id: product
+    attributes:
+      label: What are you building, and what would you charge for it?
+      description: "One or two sentences is enough — e.g. what the extension does, and the price or plan you're planning."
+      placeholder: "A Chrome extension that unlocks Pro features. I want to charge $19 one-time for unlimited use."
+    validations:
+      required: true
+
+  - type: textarea
+    id: stack
+    attributes:
+      label: Current stack (optional)
+      description: "What you already have running, and where it would live."
+      placeholder: "Stripe Checkout + a Node server on Railway, or nothing deployed yet"
+    validations:
+      required: false
+
+  - type: textarea
+    id: rules
+    attributes:
+      label: Licensing rules you want (optional)
+      description: "Device slots, offline grace period, seat count, expiry, refund behaviour — whatever matters to you."
+      placeholder: "3 devices per key, 7-day offline validation, keys die on refund"
+    validations:
+      required: false
+
+  - type: textarea
+    id: timeline
+    attributes:
+      label: Your deadline (optional)
+      description: "Target delivery is 48 hours after scope and sample are confirmed."
+      placeholder: "Want it live before the weekend"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I will not post passwords, API keys, payment-card data, government IDs, or unredacted personal data in this issue.
+          required: true
+
+  - type: textarea
+    id: contact
+    attributes:
+      label: Where should the reply go? (optional)
+      description: "Leave this empty to be replied to on GitHub. Only fill it in if you'd rather get the reply by email."
+      placeholder: "Reply here is fine"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        Prefer to start with the code instead? The free MIT reference implementation is
+        this repository — the service is the "wire it up for me" version of it:
+        <https://github.com/difeizheng/extensionkit>
