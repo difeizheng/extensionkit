@@ -8,12 +8,12 @@
   body { font: 16px/1.7 system-ui, sans-serif; max-width: 680px; margin: 48px auto; padding: 0 20px; color: #1f2937; }
   h1 { font-size: 26px; letter-spacing: -0.01em; } h2 { font-size: 18px; margin-top: 28px; }
   .muted { color: #6b7280; font-size: 14px; }
-  strong { color: #111827; }
+  strong { font-weight: 600; }
 </style>
 </head>
 <body>
 <h1>Session Hoard Privacy Policy</h1>
-<p class="muted">Last updated: 2026-10-29</p>
+<p class="muted">Last updated: 2026-11-02</p>
 
 <h2>What we store</h2>
 <p>Your saved sessions (tab titles and URLs) are stored <strong>only in your browser's
@@ -22,11 +22,19 @@ that receive your browsing data. The extension contains no analytics, no trackin
 and no remote code.</p>
 
 <h2>What leaves your machine</h2>
-<p>Exactly one thing, and only if you choose to use Pro: when you activate a license
-key (or the extension revalidates one), the extension contacts our license server
-(<code>your-license-server.example.com</code>). That request contains only the license key
-and a random device identifier. <strong>It never contains your sessions, tab titles, URLs,
-or anything you browse.</strong></p>
+<p><strong>In the version that is currently published (1.1.0), nothing leaves your machine.</strong>
+The free tier never contacts any server — there is no analytics, no telemetry, and no
+analytics-style background traffic.</p>
+<p>The extension does request permission for a single host,
+<code>your-license-server.example.com</code>, because the optional Pro license feature is
+already built into the code. That host is a placeholder that has never been activated and
+does not resolve, so if you type a license key the request cannot connect: <strong>your
+sessions, your tab titles, your URLs, and the key itself are not actually transmitted
+anywhere.</strong></p>
+<p>Before the Pro tier is switched on we will remove that permission, and this page will be
+updated before any version that talks to a server is published. When that happens, activation
+requests will contain only the license key and a random device identifier — never your
+sessions, tab titles, URLs, or anything you browse.</p>
 
 <h2>Your data, your call</h2>
 <p>You can export everything to a readable JSON file, and delete everything, from the
@@ -37,6 +45,6 @@ options page at any time. Uninstalling the extension removes it and its data ent
 "last updated" date. Material changes will be called out in the release notes.</p>
 
 <h2>Contact</h2>
-<p>Questions or data requests: <em>[support email — set before store submission]</em></p>
+<p>Questions or data requests: <a href="mailto:zhengdifei@gmail.com">zhengdifei@gmail.com</a></p>
 </body>
 </html>
