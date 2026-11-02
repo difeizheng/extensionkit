@@ -6,9 +6,10 @@
 <title>ExtensionKit — Start charging money for your browser extension</title>
 <meta name="description" content="License keys, Stripe checkout, offline validation and device slots for browser extensions. Zero-dependency server, zero-build extension, tested end to end." />
 <style>
-  :root { color-scheme: light dark; --ink: #0f172a; --muted: #64748b; --line: #e2e8f0; --accent: #2563eb; }
+  :root { color-scheme: light dark; --ink: #0f172a; --muted: #64748b; --line: #e2e8f0; --accent: #2563eb; --bg: #ffffff; }
   * { box-sizing: border-box; }
-  body { font: 16px/1.7 system-ui, -apple-system, sans-serif; color: var(--ink); margin: 0; }
+  html { background: var(--bg); }
+  body { font: 16px/1.7 system-ui, -apple-system, sans-serif; color: var(--ink); background: var(--bg); margin: 0; }
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
   header { padding: 72px 0 40px; }
   h1 { font-size: clamp(28px, 5vw, 44px); line-height: 1.15; margin: 0 0 16px; letter-spacing: -0.02em; }
@@ -35,7 +36,7 @@
   footer { padding: 28px 0 60px; color: var(--muted); font-size: 14px; }
   a { color: var(--accent); }
   @media (prefers-color-scheme: dark) {
-    :root { --ink: #e2e8f0; --muted: #94a3b8; --line: #1e293b; --accent: #60a5fa; }
+    :root { --ink: #e2e8f0; --muted: #94a3b8; --line: #1e293b; --accent: #60a5fa; --bg: #0b1120; }
     pre { background: #020617; }
   }
 </style>
