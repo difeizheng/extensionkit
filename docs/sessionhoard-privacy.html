@@ -13,7 +13,7 @@
 </head>
 <body>
 <h1>Session Hoard Privacy Policy</h1>
-<p class="muted">Last updated: 2026-11-02</p>
+<p class="muted">Last updated: 2026-11-03</p>
 
 <h2>What we store</h2>
 <p>Your saved sessions (tab titles and URLs) are stored <strong>only in your browser's
@@ -22,19 +22,9 @@ that receive your browsing data. The extension contains no analytics, no trackin
 and no remote code.</p>
 
 <h2>What leaves your machine</h2>
-<p><strong>In the version that is currently published (1.1.0), nothing leaves your machine.</strong>
-The free tier never contacts any server — there is no analytics, no telemetry, and no
-analytics-style background traffic.</p>
-<p>The extension does request permission for a single host,
-<code>your-license-server.example.com</code>, because the optional Pro license feature is
-already built into the code. That host is a placeholder that has never been activated and
-does not resolve, so if you type a license key the request cannot connect: <strong>your
-sessions, your tab titles, your URLs, and the key itself are not actually transmitted
-anywhere.</strong></p>
-<p>Before the Pro tier is switched on we will remove that permission, and this page will be
-updated before any version that talks to a server is published. When that happens, activation
-requests will contain only the license key and a random device identifier — never your
-sessions, tab titles, URLs, or anything you browse.</p>
+<p><strong>Nothing. This extension makes no network requests at all.</strong>
+Since version 1.2.0 the manifest requests no host permissions: there is no server to contact, no
+analytics, no telemetry and no remote code. Saved sessions never leave your browser profile.</p>
 
 <h2>Your data, your call</h2>
 <p>You can export everything to a readable JSON file, and delete everything, from the
