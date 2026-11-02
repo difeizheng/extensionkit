@@ -115,7 +115,7 @@ keys on purchase, activation + device slots + offline validation integrated into
 your existing MV3 build, admin panel, and handover docs. 30-day refund.
 
 → [ExtensionKit Integration — $129](https://zhengdifei.gumroad.com/l/extensionkit-integration) ·
-[中文版 ¥899](https://zhengdifei.gumroad.com/l/extensionkit-integration-cn)
+[中文版 ¥899](https://zhengdifei.gumroad.com/l/extensionkit-integration-cn)（约 $125，以结算页为准）
 
 Not ready to pay yet? [Open a service inquiry](https://github.com/difeizheng/extensionkit/issues/new?template=service-inquiry.yml)
 and describe what you're charging for — you'll get a concrete scope and a fixed price back
