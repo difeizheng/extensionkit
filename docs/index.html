@@ -27,6 +27,11 @@
   th { color: var(--muted); font-weight: 600; }
   .price { font-size: 34px; font-weight: 700; }
   .free { color: var(--muted); }
+  h3 { font-size: 17px; margin: 26px 0 8px; }
+  ol.steps { margin: 0; padding-left: 22px; }
+  ol.steps li { margin-bottom: 9px; }
+  ul.plain { margin: 0; padding-left: 22px; }
+  ul.plain li { margin-bottom: 6px; }
   footer { padding: 28px 0 60px; color: var(--muted); font-size: 14px; }
   a { color: var(--accent); }
   @media (prefers-color-scheme: dark) {
@@ -45,6 +50,7 @@
   rebuilding: license keys, Stripe&nbsp;Checkout delivery, offline validation, device slots.
   Zero-dependency server. Zero-build extension. Tested end to end.</p>
   <a class="cta" href="https://github.com/difeizheng/extensionkit">Get the free core →</a>
+  <a class="cta ghost" href="#done-for-you">Let me do it — $129</a>
   <a class="cta ghost" href="#pricing">See Pro pack</a>
 </header>
 
@@ -94,6 +100,56 @@ node src/index.js           # → http://localhost:8787  (no npm install)</pre>
   <p style="margin:0"><img src="admin-dashboard.png" alt="ExtensionKit admin panel listing four license keys with device counts and revoke/restore buttons" style="display:block;width:100%;max-width:840px;height:auto;border-radius:12px;border:1px solid var(--line);" /></p>
 </section>
 
+<section id="done-for-you">
+  <h2>Don't want to wire it yourself?</h2>
+  <p>You already have a working extension. What's missing is the week between "it works" and
+  "someone can pay for it": webhook signature verification, replay protection, license keys, device
+  slots, offline grace periods, and an activation screen nobody wants to design.
+  <b>ExtensionKit Integration</b> is that week, done for you — <b>$129, 48 hours</b>, 30-day refund,
+  no questions. Plus 30 days of support on the code I ship.</p>
+
+  <h3>How the 48 hours work</h3>
+  <ol class="steps">
+    <li><b>0-4h — I read your repo.</b> manifest, service worker, popup, and where the gate should go.
+    You get a written summary of what I'm about to change <em>before</em> I change it.</li>
+    <li><b>4-12h — Payments and gating.</b> your checkout and webhook wired so a payment mints a
+    license key; activation screen, device slots and offline validation integrated into your existing
+    MV3 build. The key-issuing logic doesn't depend on which payment provider you use.</li>
+    <li><b>12-20h — Tests and deploy.</b> the 13-test suite green plus a full smoke run
+    (pay → key → activate → offline → revoke), then deploy to your host or a $4 VPS.</li>
+    <li><b>20-30h — First key and handover.</b> your first license issued and tested, plus a deploy
+    guide, an ops guide (revoke, refund, add a device slot) and the Chrome Web Store listing
+    checklist for your extension.</li>
+    <li><b>30-48h — Buffer.</b> your changes, deployment fixes, missing docs. If 48 hours genuinely
+    isn't enough, I tell you and offer a partial delivery or a refund — I don't stretch it.</li>
+  </ol>
+
+  <h3>What I need from you</h3>
+  <ul class="plain">
+    <li>Your extension repo, or a zip of it.</li>
+    <li>Your price and plan — one-time or subscription.</li>
+    <li>A payment account: Stripe if you have one. If you can't open one, Paddle or Lemon Squeezy can
+    take the payment as merchant of record, or I run manual key issuance for WeChat / Alipay
+    payments. If you don't want to take money yet, we start on the free tier and switch checkout on
+    later.</li>
+  </ul>
+  <p style="font-size:13.5px;color:var(--muted)">The 48-hour clock starts when I have the repo
+  <em>and</em> the payment account. Time I spend waiting on your replies doesn't count against it.</p>
+
+  <h3>What I don't promise</h3>
+  <p>Being straight about the edges before you pay: I don't promise your extension's commercial
+  performance, I don't promise to get your extension through Chrome Web Store review (I hand you the
+  listing checklist; that call is Google's), and I don't promise to keep maintaining your business
+  logic after handover. What I do promise is the code above, tested, and a 30-day refund if it isn't
+  what you needed.</p>
+
+  <p style="margin-top:22px">
+    <a class="cta" href="https://zhengdifei.gumroad.com/l/extensionkit-integration">Hire me — $129</a>
+    <a class="cta ghost" href="https://zhengdifei.gumroad.com/l/extensionkit-integration-cn">中文版 ¥899</a>
+    <span class="free" style="margin-left:6px">48-hour delivery · 30-day refund · no questions</span>
+  </p>
+</section>
+
 <section id="pricing">
   <h2>Pricing</h2>
   <table>
@@ -107,6 +163,51 @@ node src/index.js           # → http://localhost:8787  (no npm install)</pre>
   <p class="free" style="margin-top:14px"><b>Prefer email?</b> Need an invoice, a contract, or RMB invoicing? Write to <a href="mailto:zhengdifei@gmail.com">zhengdifei@gmail.com</a> instead of checking out — I reply within a day.<br/>
   <b>Payment methods:</b> the checkout page takes international Visa/Mastercard, PayPal, Apple Pay and Google Pay, and shows the price in your own currency. WeChat Pay and Alipay are handled by email instead — keys issued by hand, same 48-hour / 30-day-refund terms.</p>
   <p class="free" style="margin-top:14px"><b>中文用户看这里：</b>结算页会按你的地区把价格换算成当地货币，可以直接刷国际 Visa/Mastercard，或用 PayPal、Apple Pay / Google Pay 付款；<b>微信和支付宝请走邮件</b>——发邮件到 <a href="mailto:zhengdifei@gmail.com">zhengdifei@gmail.com</a>，我手工发码，流程与英文版完全一致（48 小时交付 / 30 天无理由退款）。需要开发票、签合同、人民币报价的，同样走邮件。</p>
+</section>
+
+<section id="faq">
+  <h2>Questions people actually ask</h2>
+
+  <h3>When does the 48-hour clock start?</h3>
+  <p>When I have your repo and your payment account. Time I spend waiting on your replies doesn't
+  count against the 48 hours, and I'll tell you where the clock stands at every step.</p>
+
+  <h3>What exactly do you need from me?</h3>
+  <p>Three things: the repo (or a zip of it), your price and plan (one-time or subscription), and a
+  payment account — Stripe, or Paddle / Lemon Squeezy as merchant of record, or manual key issuance
+  for WeChat / Alipay payments. If you'd rather not take money yet, we can start on the free tier and
+  switch checkout on later.</p>
+
+  <h3>Do I have to give you my code?</h3>
+  <p>Yes — the integration is real code changes in your extension (service worker, popup,
+  manifest), so I need the repo or a zip. If the repo is private, a zip works fine. You keep
+  everything, and the integration work is yours to keep.</p>
+
+  <h3>What if it doesn't work for me?</h3>
+  <p>30 days, no questions, full refund. That includes the case where it turns out your extension
+  needs something out of scope — say so and you get the money back.</p>
+
+  <h3>Can I pay by invoice, in RMB, or with WeChat / Alipay?</h3>
+  <p>Yes — email <a href="mailto:zhengdifei@gmail.com">zhengdifei@gmail.com</a> instead of checking
+  out and I'll send an invoice or a contract. The checkout page takes international
+  Visa/Mastercard, PayPal, Apple Pay and Google Pay, and shows the price in your own currency.
+  WeChat Pay and Alipay are handled by email, keys issued by hand, same 48-hour / 30-day-refund
+  terms.</p>
+
+  <h3>Do I need a server?</h3>
+  <p>You need somewhere to run the license server — a $4 VPS, Railway or Fly, your choice, and the
+  deploy guide is tuned to whichever you pick. If you'd rather not run one, I can host it, but only
+  with your explicit written agreement about data ownership and how to take it down.</p>
+
+  <h3>Will you get my extension through Chrome Web Store review?</h3>
+  <p>No — I won't promise that, because it isn't mine to promise. You get a listing checklist and
+  description and screenshot templates that have already passed review once (Session Hoard above is
+  the proof). The review decision is Google's.</p>
+
+  <h3>What happens if I stop paying you?</h3>
+  <p>Nothing breaks. The extension only ever talks to your license server — plain Node, no external
+  service in the validation path, signing with its own secret from its own <code>.env</code>. If I
+  host that server for you, you get the steps to move it onto your own account at any time.</p>
 </section>
 
 <footer>

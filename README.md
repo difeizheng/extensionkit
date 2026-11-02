@@ -3,7 +3,7 @@
 **The fastest way to start charging money for your browser extension.**
 
 [![tests](https://github.com/difeizheng/extensionkit/actions/workflows/tests.yml/badge.svg)](https://github.com/difeizheng/extensionkit/actions/workflows/tests.yml)
-[Live docs site](https://learnmilo.com/extensionkit/) · MIT core · Pro pack $59
+[Live docs site](https://learnmilo.com/extensionkit/) · MIT core · Pro pack $59 · Done for you $129
 
 > **Not to be confused with [Apple's ExtensionKit](https://developer.apple.com/documentation/extensionkit)** — that one is about macOS/iOS app extension points. This one is about **payments and licensing for browser extensions (Chrome MV3)**.
 
@@ -116,6 +116,23 @@ your existing MV3 build, admin panel, and handover docs. 30-day refund.
 
 → [ExtensionKit Integration — $129](https://zhengdifei.gumroad.com/l/extensionkit-integration) ·
 [中文版 ¥899](https://zhengdifei.gumroad.com/l/extensionkit-integration-cn)（约 $125，以结算页为准）
+
+**How the 48 hours work:** 0-4h I read your repo and write down what I'll change before I change it ·
+4-12h payments + gating wired into your existing build · 12-20h the 13 tests green, a full
+pay→key→activate→offline→revoke smoke run, and a deploy · 20-30h your first key issued plus
+handover docs and the CWS listing checklist · 30-48h buffer for your changes. The clock starts when I
+have the repo **and** a payment account — time I spend waiting on you doesn't count against it.
+
+**What I need from you:** the repo (or a zip of it), your price and plan (one-time or subscription),
+and a payment account — Stripe, or Paddle / Lemon Squeezy as merchant of record, or manual key
+issuance for WeChat / Alipay.
+
+**What I don't promise:** your extension's commercial performance, a Chrome Web Store review outcome
+(I give you the listing checklist; that call is Google's), or maintaining your business logic after
+handover. What you do get: the code, tested, 30 days of support on it, and a 30-day refund if it
+isn't what you needed.
+
+Full FAQ: [learnmilo.com/extensionkit/#faq](https://learnmilo.com/extensionkit/#faq)
 
 Not ready to pay yet? [Open a service inquiry](https://github.com/difeizheng/extensionkit/issues/new?template=service-inquiry.yml)
 and describe what you're charging for — you'll get a concrete scope and a fixed price back
