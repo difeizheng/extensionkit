@@ -13,6 +13,8 @@
 
 License keys, a Stripe checkout → license delivery pipeline, offline validation, and a device-slot system — in one weekend-downloadable kit. **Zero npm dependencies** on the server; **zero build step** in the extension.
 
+**Proof, not theory:** my own free extension — [Session Hoard](https://chromewebstore.google.com/detail/session-hoard/hmhinlmikdmcjaflpfbdcapnglomeafp) — is live on the Chrome Web Store. It went through the same review your extension will go through.
+
 ```
 ┌──────────────┐  pays   ┌─────────────────┐  webhook  ┌────────────────────┐
 │    Buyer     │ ──────► │ Stripe Checkout │ ────────► │  License Server    │
