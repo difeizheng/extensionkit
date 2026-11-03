@@ -11,6 +11,11 @@ process.env.LICENSE_SECRET = 'test-secret-0123456789abcdef0123456789abcdef';
 process.env.ADMIN_KEY = 'test-admin-key';
 process.env.STRIPE_WEBHOOK_SECRET = 'whsec_test_0123456789';
 process.env.DB_FILE = path.join(os.tmpdir(), `extensionkit-test-${process.pid}.db`);
+// The per-minute limiter is covered on its own in ratelimit.test.js (isolated process).
+// This file exercises functional behaviour, so keep the limiter out of the way: the suite
+// makes more than 10 activation calls inside one minute, which would otherwise trip the
+// production default of 10/min and fail with a confusing 429 instead of a real assertion.
+process.env.RATE_LIMIT_ACTIVATE_PER_MIN = '200';
 
 const { server, CONFIG } = require('../src/index');
 const { verifyToken, generateLicenseKey } = require('../src/tokens');
@@ -23,7 +28,10 @@ test.before(async () => {
   baseUrl = `http://127.0.0.1:${server.address().port}`;
 });
 
-test.after(() => server.close());
+test.after(() => {
+  server.close();
+  try { fs.unlinkSync(CONFIG.dbFile); } catch {}
+});
 
 async function post(p, body, headers = {}) {
   const res = await fetch(baseUrl + p, {
@@ -181,6 +189,18 @@ test('admin can issue and revoke licenses', async () => {
   assert.equal(restored.status, 200);
 });
 
-test('cleanup temp db', () => {
-  try { fs.unlinkSync(CONFIG.dbFile); } catch {}
+test('deactivating a device frees its slot for a new device', async () => {
+  const key = generateLicenseKey();
+  seedLicense(key, 1);
+  const first = await post('/v1/licenses/activate', { license_key: key, instance_id: 'slot-device-1111' });
+  assert.equal(first.status, 200);
+  // the only slot is taken, so a second device is refused
+  const blocked = await post('/v1/licenses/activate', { license_key: key, instance_id: 'slot-device-2222' });
+  assert.equal(blocked.status, 409);
+  // the owner frees the slot themselves - no support ticket, no admin key
+  const freed = await post('/v1/licenses/deactivate', { license_key: key, instance_id: 'slot-device-1111' });
+  assert.equal(freed.status, 200);
+  // now the new device can activate
+  const second = await post('/v1/licenses/activate', { license_key: key, instance_id: 'slot-device-2222' });
+  assert.equal(second.status, 200);
 });

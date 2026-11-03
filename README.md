@@ -56,8 +56,8 @@ ExtensionKit is that week, already done — with tests.
 - **Zero-dependency server.** `node src/index.js` and you're live on any VPS, container,
   or free tier. SQLite storage via Node's built-in `node:sqlite`. Optional plugin hook
   (`SUBSCRIPTION_MODULE`) adds subscription-aware licensing without touching the core.
-- **Tested.** The server ships with an end-to-end test suite (`npm test`): activation
-  limits, token signatures, webhook forgery, replay protection, admin auth.
+- **Tested.** The server ships with a test suite of 13 tests (`npm test`): activation
+  limits, device slots, token signatures, webhook forgery, replay protection, admin auth.
 
 ## Quickstart (5 minutes)
 
