@@ -2,9 +2,9 @@ name: tests
 
 on:
   push:
-    paths: ['server/**', '.github/workflows/tests.yml']
+    paths: ['server/**', 'docs/**', 'deploy/**', 'README.md', '.github/workflows/tests.yml']
   pull_request:
-    paths: ['server/**', '.github/workflows/tests.yml']
+    paths: ['server/**', 'docs/**', 'deploy/**', 'README.md', '.github/workflows/tests.yml']
   workflow_dispatch:
 
 jobs:
@@ -21,3 +21,25 @@ jobs:
       - name: Run license server test suite
         working-directory: server
         run: npm test
+      - name: Smoke test the documented quickstart
+        working-directory: server
+        run: |
+          set -euo pipefail
+          # This runs the exact steps the README, getting-started, the landing
+          # page and deploy/install.sh tell a reader to run. It exists because
+          # the server once resolved .env against src/ instead of server/,
+          # which made every one of those documented commands fail with
+          # "Missing required env var: LICENSE_SECRET" while the unit tests
+          # stayed green (they inject environment variables directly).
+          cp .env.example .env
+          sed -i "s|^LICENSE_SECRET=.*|LICENSE_SECRET=ci-secret-0123456789abcdef|" .env
+          sed -i "s|^ADMIN_KEY=.*|ADMIN_KEY=ci-admin-key-0123456789|" .env
+          node src/index.js &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+          for _ in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8787/healthz > /dev/null 2>&1; then break; fi
+            sleep 1
+          done
+          # Fails loudly if the server never came up or never read server/.env.
+          curl -fsS http://127.0.0.1:8787/healthz
