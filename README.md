@@ -96,7 +96,7 @@ This repo is the free, MIT-licensed core. The **Pro pack** (paid) adds:
 - Subscription-aware webhook handling (monthly keys that expire & renew)
 - Chrome Web Store listing templates + launch checklist
 - Email templates for license delivery & support
-- 45-minute setup video walkthrough
+- 45-minute setup walkthrough script — timed, shot-by-shot, every command included
 
 <p align="center">
   <img src="docs/admin-dashboard.png" alt="ExtensionKit admin panel — license keys, device counts, revoke and restore" width="100%">
