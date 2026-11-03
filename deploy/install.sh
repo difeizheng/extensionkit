@@ -155,7 +155,9 @@ Next steps
   2. Set STRIPE_WEBHOOK_SECRET in $ENV_FILE, then: systemctl restart $SERVICE_NAME
   3. Point your extension at https://license.yourdomain.com and add that origin
      to host_permissions in manifest.json.
-  4. Admin panel (Pro pack): open admin/dashboard.html from your server dir.
+  4. Manage licenses from the admin API (free core, Bearer admin key):
+       curl -H "Authorization: Bearer <your ADMIN_KEY>" http://127.0.0.1:8787/admin/licenses
+     The browser admin panel is a Pro pack extra — it is not in this repo.
   5. Back up $ENV_FILE and $DATA_DIR/licenses.db — those two files are the business.
 
 Useful commands

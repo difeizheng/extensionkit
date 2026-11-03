@@ -80,8 +80,8 @@ cd server
 npm test
 ```
 
-9 tests cover activation, device limits, token signatures, Stripe webhook signature
-verification, replay protection, and admin auth.
+13 tests cover activation, device limits, token signatures, Stripe webhook signature
+verification, replay protection, rate limiting, and admin auth.
 
 ## What next?
 

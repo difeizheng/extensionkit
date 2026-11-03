@@ -8,7 +8,15 @@ const { signToken, verifyToken, generateLicenseKey } = require('./tokens');
 const { verifyStripeSignature, parseCheckoutCompleted } = require('./stripe');
 const { createRateLimiter } = require('./ratelimit');
 
-const CONFIG = buildConfig(__dirname);
+// The server root is the directory that holds package.json — NOT src/.
+// The documented flow is `cd server && cp .env.example .env && node src/index.js`,
+// so .env and the default data/ directory must resolve against server/.
+// Passing src/ here made every file-based start command fail with
+// "Missing required env var: LICENSE_SECRET" (and broke deploy/install.sh,
+// which writes server/.env). Docker and Railway were unaffected because they
+// inject environment variables instead of reading a .env file.
+const SERVER_ROOT = path.join(__dirname, '..');
+const CONFIG = buildConfig(SERVER_ROOT);
 const store = openDb(CONFIG.dbFile);
 
 // Per-client fixed-window rate limits. Webhooks and health checks are exempt:

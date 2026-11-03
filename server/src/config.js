@@ -46,7 +46,11 @@ function buildConfig(dir) {
       deactivatePerMin: int('RATE_LIMIT_DEACTIVATE_PER_MIN', 30),
       adminPerMin: int('RATE_LIMIT_ADMIN_PER_MIN', 120),
     },
-    dbFile: process.env.DB_FILE || path.join(dir, 'data', 'licenses.db'),
+    // A relative DB_FILE resolves against the server root, not the shell's cwd,
+    // so `node server/src/index.js` from the repo root still writes to server/data/.
+    dbFile: process.env.DB_FILE
+      ? path.resolve(dir, process.env.DB_FILE)
+      : path.join(dir, 'data', 'licenses.db'),
   };
 }
 
